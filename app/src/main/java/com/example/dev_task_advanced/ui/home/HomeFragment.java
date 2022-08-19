@@ -1,6 +1,7 @@
 package com.example.dev_task_advanced.ui.home;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,12 +21,17 @@ import com.example.dev_task_advanced.MyCustomPagerAdapter;
 import com.example.dev_task_advanced.R;
 import com.example.dev_task_advanced.databinding.FragmentHomeBinding;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class HomeFragment extends Fragment {
 
     ViewPager viewPager;
-    int images[] = {R.drawable.box};
+    int images[] = {R.drawable.box , R.drawable.box_fight};
     MyCustomPagerAdapter myCustomPagerAdapter;
+    Timer timer;
+    Handler handler;
 
     private FragmentHomeBinding binding;
 
@@ -43,8 +49,24 @@ public class HomeFragment extends Fragment {
         viewPager.setAdapter(myCustomPagerAdapter);
 
         View root = binding.getRoot();
+
+        handler = new Handler();
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        int i = binding.viewPager.getCurrentItem();
+                        i++;
+                        viewPager.setCurrentItem(i,true);
+                    }
+                });
+            }
+        },5000,5000);
         return root;
-        //TODO viewpager!!
+
         //todo map(google libaries)
 
     }
