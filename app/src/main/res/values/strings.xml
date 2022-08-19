@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Dev_task_advanced</string>
+    <string name="title_home">Home</string>
+    <string name="title_place">Place</string>
+    <string name="title_services">Services</string>
+    <string name="title_my_records">My Records</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
