@@ -20,6 +20,11 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.dev_task_advanced.MyCustomPagerAdapter;
 import com.example.dev_task_advanced.R;
 import com.example.dev_task_advanced.databinding.FragmentHomeBinding;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -65,6 +70,23 @@ public class HomeFragment extends Fragment {
                 });
             }
         },5000,5000);
+
+        SupportMapFragment supportMapFragment = (SupportMapFragment)
+                getChildFragmentManager().findFragmentById(R.id.googleMap);
+        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                    @Override
+                    public void onMapClick(LatLng latLng) {
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.position(latLng);
+                        markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+                        googleMap.addMarker(markerOptions);
+                    }
+                });
+            }
+        });
         return root;
 
         //todo map(google libaries)

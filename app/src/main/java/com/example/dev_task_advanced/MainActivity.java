@@ -3,8 +3,10 @@ package com.example.dev_task_advanced;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.dev_task_advanced.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -35,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        Fragment homeFragment = new HomeFragment();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .commit();
 
     }
 
