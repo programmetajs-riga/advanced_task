@@ -8,15 +8,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.dev_task_advanced.AdapterHomeList;
+import com.example.dev_task_advanced.Constants;
+import com.example.dev_task_advanced.DTOs.LocationDTO;
+import com.example.dev_task_advanced.HTTP;
 import com.example.dev_task_advanced.MyCustomPagerAdapter;
 import com.example.dev_task_advanced.R;
 import com.example.dev_task_advanced.databinding.FragmentHomeBinding;
@@ -26,6 +33,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONException;
+
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -35,8 +45,13 @@ public class HomeFragment extends Fragment {
     ViewPager viewPager;
     int images[] = {R.drawable.box , R.drawable.box_fight};
     MyCustomPagerAdapter myCustomPagerAdapter;
+    ArrayList<LocationDTO> locationDTOS = null;
     Timer timer;
     Handler handler;
+    LinearLayout sliderPanel;
+    private int dotsCount;
+    private ImageView[] dots;
+
 
     private FragmentHomeBinding binding;
 
@@ -47,11 +62,60 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-
-        viewPager = (ViewPager) binding.viewPager;
+       viewPager = (ViewPager) binding.viewPager;
+       sliderPanel = (LinearLayout) binding.sliderDots;
 
         myCustomPagerAdapter = new MyCustomPagerAdapter(getContext(), images);
         viewPager.setAdapter(myCustomPagerAdapter);
+
+        dotsCount = myCustomPagerAdapter.getCount();
+        dots = new ImageView[dotsCount];
+
+        for( int i = 0 ; i < dotsCount ; i++){
+
+            dots[i] = new ImageView(getContext());
+            dots[i].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.nonactive_dot));
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT , LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            params.setMargins(8, 0 ,8 , 0);
+
+            sliderPanel.addView(dots[i], params);
+        }
+
+         dots[0].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.active_dot));
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+                for(int i = 0 ; i < dotsCount ; i++){
+                    dots[i].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(),R.drawable.nonactive_dot));
+                }
+
+                dots[position].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(),R.drawable.active_dot));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        try {
+            locationDTOS = getSports();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        AdapterHomeList adapterHomeList = new AdapterHomeList(getContext(),locationDTOS);
+        binding.listView.setAdapter(adapterHomeList);
+
+
 
         View root = binding.getRoot();
 
@@ -63,9 +127,13 @@ public class HomeFragment extends Fragment {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        int i = binding.viewPager.getCurrentItem();
-                        i++;
-                        viewPager.setCurrentItem(i,true);
+                        try {
+                            int i = binding.viewPager.getCurrentItem();
+                            i++;
+                            viewPager.setCurrentItem(i,true);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
@@ -89,14 +157,21 @@ public class HomeFragment extends Fragment {
         });
         return root;
 
-        //todo map(google libaries)
-
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private ArrayList<LocationDTO> getSports() throws JSONException {
+
+        return LocationDTO.GetValue(new HTTP()
+                .baseUrl(Constants.baseUrl + "getLocationsByCity?cityId=1")
+                .metode("GET")
+                .connect()
+                .content);
     }
 
 }

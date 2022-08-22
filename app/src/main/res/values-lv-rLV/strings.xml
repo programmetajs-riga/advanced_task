@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dev_task_advanced</string>
+    <string name="title_home">Mājas</string>
+    <string name="title_place">Vieta</string>
+    <string name="title_services">Pakalpojumi</string>
+    <string name="title_my_records">Mani ieraksti</string>
+    <string name="title_settings">Iestatījumi</string>
+    <string name="title_app_settings">Lietotņu iestatījumi</string>
+    <string name="title_language">Valoda</string>
+    <string name="title_language_selected">Latvijas</string>
+    <string name="title_pin_code">PIN kods</string>
+    <string name="title_pin_code">PIN kods</string>
+    <string name="title_pin_code_selected">Atspējot</string>
+    <string name="title_button">Autorizēt</string>
+</resources>

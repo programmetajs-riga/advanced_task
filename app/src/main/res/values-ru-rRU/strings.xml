@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dev_task_advanced</string>
+    <string name="title_home">Домой</string>
+    <string name="title_place">Место</string>
+    <string name="title_services">Сервис</string>
+    <string name="title_my_records">Мои рекорды</string>
+    <string name="title_settings">Настройки</string>
+    <string name="title_language">Язык</string>
+    <string name="title_app_settings">Настройки приложения</string>
+    <string name="title_language_selected">Русский</string>
+    <string name="title_pin_code">PIN код</string>
+    <string name="title_pin_code_selected">Выкл.</string>
+    <string name="title_button">Разрешить</string>
+    <string name="title_button">Разрешить</string>
+</resources>
