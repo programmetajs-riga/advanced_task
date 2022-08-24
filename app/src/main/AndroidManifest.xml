@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.dev_task_advanced">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -17,12 +17,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dev_task_advanced"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.LanguageActivity"
+            android:exported="false"
+            android:label="@string/title_language"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.dev_task_advanced.activity.MainActivity"/>
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyADQSlHU2VrbyE9PvZMZVyKHkTxposDIis"/>
+            android:value="AIzaSyADQSlHU2VrbyE9PvZMZVyKHkTxposDIis" />
+
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
@@ -31,8 +41,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

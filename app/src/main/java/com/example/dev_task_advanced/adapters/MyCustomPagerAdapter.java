@@ -1,4 +1,4 @@
-package com.example.dev_task_advanced;
+package com.example.dev_task_advanced.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
+
+import com.example.dev_task_advanced.R;
 
 public class MyCustomPagerAdapter extends PagerAdapter {
 

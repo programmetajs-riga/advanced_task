@@ -1,7 +1,11 @@
 package com.example.dev_task_advanced.ui.home;
 
+import android.app.ActionBar;
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,21 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.dev_task_advanced.AdapterHomeList;
+import com.example.dev_task_advanced.adapters.AdapterHomeList;
 import com.example.dev_task_advanced.Constants;
 import com.example.dev_task_advanced.DTOs.LocationDTO;
 import com.example.dev_task_advanced.HTTP;
-import com.example.dev_task_advanced.MyCustomPagerAdapter;
+import com.example.dev_task_advanced.adapters.MyCustomPagerAdapter;
 import com.example.dev_task_advanced.R;
 import com.example.dev_task_advanced.databinding.FragmentHomeBinding;
 import com.google.android.gms.maps.GoogleMap;
@@ -49,6 +51,8 @@ public class HomeFragment extends Fragment {
     Timer timer;
     Handler handler;
     LinearLayout sliderPanel;
+    private SearchView searchView = null;
+    private SearchView.OnQueryTextListener queryTextListener;
     private int dotsCount;
     private ImageView[] dots;
 
@@ -57,8 +61,8 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MyRecordsViewModel homeViewModel =
-                new ViewModelProvider(this).get(MyRecordsViewModel.class);
+        HomeViewModel homeViewModel =
+                new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
@@ -115,8 +119,6 @@ public class HomeFragment extends Fragment {
         AdapterHomeList adapterHomeList = new AdapterHomeList(getContext(),locationDTOS);
         binding.listView.setAdapter(adapterHomeList);
 
-
-
         View root = binding.getRoot();
 
         handler = new Handler();
@@ -157,6 +159,44 @@ public class HomeFragment extends Fragment {
         });
         return root;
 
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.search_action_bar, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        if (searchItem != null) {
+            searchView = (SearchView) searchItem.getActionView();
+        }
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+            queryTextListener = new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    Log.i("onQueryTextChange", newText);
+
+                    return true;
+                }
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Log.i("onQueryTextSubmit", query);
+
+                    return true;
+                }
+            };
+            searchView.setOnQueryTextListener(queryTextListener);
+        }
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

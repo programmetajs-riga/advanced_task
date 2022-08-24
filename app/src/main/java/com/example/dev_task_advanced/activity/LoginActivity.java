@@ -1,10 +1,13 @@
-package com.example.dev_task_advanced;
+package com.example.dev_task_advanced.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.dev_task_advanced.Constants;
+import com.example.dev_task_advanced.HTTP;
 import com.example.dev_task_advanced.databinding.ActivityLoginBinding;
 
 import java.util.HashMap;

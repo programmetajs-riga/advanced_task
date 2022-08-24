@@ -1,4 +1,4 @@
-package com.example.dev_task_advanced;
+package com.example.dev_task_advanced.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.dev_task_advanced.DTOs.LocationDTO;
+import com.example.dev_task_advanced.R;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,6 @@ public class AdapterHomeList extends BaseAdapter {
     ArrayList<LocationDTO> locationById = null;
     Context context;
     LayoutInflater Inflater;
-    LinearLayout linearLayout;
 
 
     public AdapterHomeList(Context ctx, ArrayList<LocationDTO> locationById){
@@ -26,6 +26,8 @@ public class AdapterHomeList extends BaseAdapter {
         this.locationById = locationById;
         this.Inflater = LayoutInflater.from(ctx);
     }
+
+
 
     @Override
     public int getCount() {

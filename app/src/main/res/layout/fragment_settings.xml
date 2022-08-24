@@ -37,6 +37,7 @@
             android:textStyle="bold"
             android:text="@string/title_language"/>
         <TextView
+            android:id="@+id/select_language"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
