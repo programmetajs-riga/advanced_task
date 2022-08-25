@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -51,6 +52,7 @@ public class HomeFragment extends Fragment {
     Timer timer;
     Handler handler;
     LinearLayout sliderPanel;
+    TextView titleToolbar;
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
     private int dotsCount;
@@ -64,7 +66,10 @@ public class HomeFragment extends Fragment {
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
+        toolBarConfig();
 
        viewPager = (ViewPager) binding.viewPager;
        sliderPanel = (LinearLayout) binding.sliderDots;
@@ -121,6 +126,7 @@ public class HomeFragment extends Fragment {
 
         View root = binding.getRoot();
 
+
         handler = new Handler();
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -134,9 +140,12 @@ public class HomeFragment extends Fragment {
                             i++;
                             viewPager.setCurrentItem(i,true);
                         }catch (Exception e){
-                            e.printStackTrace();
+
                         }
+
+
                     }
+
                 });
             }
         },5000,5000);
@@ -157,52 +166,23 @@ public class HomeFragment extends Fragment {
                 });
             }
         });
+
         return root;
 
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
-        inflater.inflate(R.menu.search_action_bar, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-
-        if (searchItem != null) {
-            searchView = (SearchView) searchItem.getActionView();
-        }
-        if (searchView != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-
-            queryTextListener = new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    Log.i("onQueryTextChange", newText);
-
-                    return true;
-                }
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    Log.i("onQueryTextSubmit", query);
-
-                    return true;
-                }
-            };
-            searchView.setOnQueryTextListener(queryTextListener);
-        }
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void toolBarConfig() {
+
+        titleToolbar = binding.include.tollbarTitle;
+        titleToolbar.setVisibility(View.INVISIBLE);
+
     }
 
     private ArrayList<LocationDTO> getSports() throws JSONException {

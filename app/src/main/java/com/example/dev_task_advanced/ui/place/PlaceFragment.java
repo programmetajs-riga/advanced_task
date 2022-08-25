@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,12 +21,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class PlaceFragment extends Fragment {
 
     private FragmentPlaceBinding binding;
+    ImageView search;
+    TextView titleToolbar;
+    ImageView backBtn;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentPlaceBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        toolBarConfig();
 
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.googleMap);
@@ -50,5 +56,17 @@ public class PlaceFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void toolBarConfig() {
+        search = binding.include.search;
+        search.setVisibility(View.INVISIBLE);
+
+        backBtn = binding.include.btnBack;
+        search.setVisibility(View.INVISIBLE);
+
+        titleToolbar = binding.include.tollbarTitle;
+        titleToolbar.setText(getText(R.string.title_toolbar_place));
+
     }
 }

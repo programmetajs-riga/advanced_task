@@ -12,4 +12,5 @@
     <string name="title_pin_code">PIN код</string>
     <string name="title_pin_code_selected">Выкл.</string>
     <string name="title_button">Разрешить</string>
+    <string name="title_toolbar_place">Выберите город</string>
 </resources>

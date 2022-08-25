@@ -6,13 +6,103 @@
     android:layout_height="match_parent"
     tools:context=".activity.LanguageActivity">
 
+    <include layout="@layout/toolbar_language_selector"
+        android:id="@+id/tollbar"/>
+
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="20dp"
+        android:text="Submit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/container"
+        android:gravity="center"
+        android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="228dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/tollbar"
+        tools:ignore="MissingConstraints">
+
+        <TableRow
+            android:id="@+id/lv_selected_language"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp">
+
+            <TextView
+
+                android:layout_width="162dp"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/ic_lv_flag"
+                android:gravity="center"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="latviešu valoda" />
+
+            <TextView
+                android:id="@+id/checked_lv_language"
+                android:visibility="invisible"
+                android:layout_weight="@integer/material_motion_duration_long_1"
+                android:drawableRight="@drawable/ic_baseline_check_24" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/rus_selected_language"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/ic_ru_flag"
+                android:gravity="center"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Русский" />
+
+            <TextView
+                android:id="@+id/checked_ru_language"
+                android:layout_weight="@integer/material_motion_duration_long_1"
+                android:drawableRight="@drawable/ic_baseline_check_24"
+                android:visibility="invisible"/>
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/eng_selected_language"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/ic_american_flag"
+                android:gravity="center"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="English" />
+
+            <TextView
+                android:id="@+id/checked_en_language"
+                android:layout_weight="@integer/material_motion_duration_long_1"
+                android:drawableRight="@drawable/ic_baseline_check_24"
+                />
+        </TableRow>
+    </TableLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
