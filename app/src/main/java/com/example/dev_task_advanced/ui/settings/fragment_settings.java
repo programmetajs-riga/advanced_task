@@ -35,10 +35,10 @@ public class fragment_settings extends Fragment {
         toolBarConfig();
 
 
-        TextView languageSelet = (TextView) binding.selectLanguage;
+        TextView languageSelect = (TextView) binding.selectLanguage;
 
 
-        languageSelet.setOnClickListener(new View.OnClickListener() {
+        languageSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), LanguageActivity.class);
