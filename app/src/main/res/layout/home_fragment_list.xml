@@ -12,7 +12,7 @@
         android:padding="10dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/container"
-        tools:ignore="MissingConstraints">
+        >
 
         <LinearLayout
             android:layout_width="wrap_content"

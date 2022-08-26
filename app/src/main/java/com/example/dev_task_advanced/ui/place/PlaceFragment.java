@@ -32,8 +32,23 @@ public class PlaceFragment extends Fragment {
         View root = binding.getRoot();
         toolBarConfig();
 
+        googleMap();
+
+
+
+        return root;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    public void googleMap(){
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.googleMap);
+
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
@@ -48,14 +63,6 @@ public class PlaceFragment extends Fragment {
                 });
             }
         });
-
-        return root;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 
     public void toolBarConfig() {

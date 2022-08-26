@@ -49,7 +49,7 @@
             android:text="@string/title_language_selected"
             android:textColor="@color/black"
             android:gravity="center"
-            app:drawableLeftCompat="@drawable/ic_american_flag" />
+            app:drawableLeftCompat="@drawable/flag" />
 
 
     </LinearLayout>

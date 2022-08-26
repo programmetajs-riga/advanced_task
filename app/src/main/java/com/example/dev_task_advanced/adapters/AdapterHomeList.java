@@ -8,36 +8,47 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.dev_task_advanced.DTOs.LocationDTO;
 import com.example.dev_task_advanced.R;
+import com.example.dev_task_advanced.databinding.HomeFragmentListBinding;
 
 import java.util.ArrayList;
 
-public class AdapterHomeList extends BaseAdapter {
+public class AdapterHomeList extends RecyclerView.Adapter<AdapterHomeList.ViewHolder> {
 
     ArrayList<LocationDTO> locationById = null;
     Context context;
-    LayoutInflater Inflater;
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
 
-    public AdapterHomeList(Context ctx, ArrayList<LocationDTO> locationById){
+        public ViewHolder(HomeFragmentListBinding binding) {
+            super(binding.getRoot());
+        }
+    }
 
-        this.context = ctx;
+    public AdapterHomeList(ArrayList<LocationDTO> locationById){
         this.locationById = locationById;
-        this.Inflater = LayoutInflater.from(ctx);
     }
 
 
+    @NonNull
+    @Override
+    public AdapterHomeList.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        HomeFragmentListBinding binding = HomeFragmentListBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+
+        return new AdapterHomeList.ViewHolder(binding);
+    }
 
     @Override
-    public int getCount() {
-        return locationById.size();
+    public void onBindViewHolder(@NonNull AdapterHomeList.ViewHolder holder, int position) {
+        holder.locationById
     }
 
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
 
     @Override
     public long getItemId(int position) {
@@ -45,15 +56,8 @@ public class AdapterHomeList extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        convertView = Inflater.inflate(R.layout.home_fragment_list,null);
-        TextView titleText = (TextView) convertView.findViewById(R.id.title_text);
-        TextView adressText = (TextView) convertView.findViewById(R.id.address);
-
-        titleText.setText(locationById.get(position).Name);
-        adressText.setText(locationById.get(position).Location);
-
-        return convertView;
+    public int getItemCount() {
+        return locationById.size();
     }
+
 }
