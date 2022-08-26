@@ -64,6 +64,10 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
         toolBarConfig();
+        //todo почитать про жизненный цикл фрагментов !!!(фрагмент при закрытии не закрывался а оставался в таком же состоянии)!
+        //todo pixelperfect(paddingi default16dp (8,16,24,,,etc.))
+
+
 
         binding();
 
