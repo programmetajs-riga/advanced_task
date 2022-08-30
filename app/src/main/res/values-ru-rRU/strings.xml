@@ -11,6 +11,11 @@
     <string name="title_language_selected">Русский</string>
     <string name="title_pin_code">PIN код</string>
     <string name="title_pin_code_selected">Выкл.</string>
-    <string name="title_button">Разрешить</string>
+    <string name="title_button">Aвторизовать</string>
     <string name="title_toolbar_place">Выберите город</string>
+    <string name="open_map">Открыть карту</string>
+    <string name="title_toolbar_main">Панель инструментов</string>
+    <string name="back">назад</string>
+    <string name="submit">Отправить</string>
+    <string name="_1_place">1.место</string>
 </resources>

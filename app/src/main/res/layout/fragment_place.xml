@@ -32,7 +32,7 @@
         android:background="@drawable/container"
         android:drawableLeft="@drawable/ic_baseline_open_in_full_24"
         android:gravity="center"
-        android:text="Open map"
+        android:text="@string/open_map"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="1.place" />
+                android:text="@string/_1_place" />
 
         </LinearLayout>
 

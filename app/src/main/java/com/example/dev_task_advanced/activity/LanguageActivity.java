@@ -26,6 +26,7 @@ public class LanguageActivity extends AppCompatActivity {
     TableRow ruRow;
     TableRow lvRow;
     String languageToLoad  = "en";
+    String usedLanguage;
     TextView checkedEnLanguage;
     TextView checkedRuLanguage;
     TextView checkedLvLanguage;
@@ -37,6 +38,12 @@ public class LanguageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_language);
         getSupportActionBar().hide();
         uiComponentDef();
+
+       usedLanguage = String.valueOf(getResources().getConfiguration().locale);
+
+       validation();
+
+
 
 
         enRow.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +63,6 @@ public class LanguageActivity extends AppCompatActivity {
                 languageToLoad  = "ru";
                 checkedEnLanguage.setVisibility(View.INVISIBLE);
                 checkedLvLanguage.setVisibility(View.INVISIBLE);
-
 
                 checkedRuLanguage.setVisibility(View.VISIBLE);
             }
@@ -100,6 +106,27 @@ public class LanguageActivity extends AppCompatActivity {
         });
     }
 
+    public void validation(){
+        if(usedLanguage.equals("en")){
+            checkedRuLanguage.setVisibility(View.INVISIBLE);
+            checkedLvLanguage.setVisibility(View.INVISIBLE);
+
+            checkedEnLanguage.setVisibility(View.VISIBLE);
+        }else if (usedLanguage.equals("ru")){
+            checkedEnLanguage.setVisibility(View.INVISIBLE);
+            checkedLvLanguage.setVisibility(View.INVISIBLE);
+
+            checkedRuLanguage.setVisibility(View.VISIBLE);
+        }else if (usedLanguage.equals("lv")){
+            checkedRuLanguage.setVisibility(View.INVISIBLE);
+            checkedEnLanguage.setVisibility(View.INVISIBLE);
+
+            checkedLvLanguage.setVisibility(View.VISIBLE);
+        }else{
+            String testDebug = null;
+            testDebug = "asd";
+        }
+    }
     public void uiComponentDef (){
         btnSubmit = (Button) findViewById(R.id.button);
         btnBack = (TextView) findViewById(R.id.btn_back);
