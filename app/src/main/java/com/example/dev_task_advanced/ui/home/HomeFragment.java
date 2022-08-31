@@ -1,12 +1,8 @@
 package com.example.dev_task_advanced.ui.home;
 
-import android.app.SearchManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -18,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,10 +48,12 @@ public class HomeFragment extends Fragment {
     MyCustomPagerAdapter myCustomPagerAdapter;
     ArrayList<LocationDTO> locationDTOS = null;
     Timer timer;
+    int saveInstance = 0;
     Handler handler;
     LinearLayout sliderPanel;
     TextView titleToolbar;
     TextView openMap;
+    ImageView backBtn;
     ImageView searchBtn;
     EditText searchText;
     private SearchView searchView = null;
@@ -70,6 +67,8 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+
         HomeViewModel homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         
@@ -86,6 +85,7 @@ public class HomeFragment extends Fragment {
 
         openMap();
 
+
         search();
 
         AdapterHomeList adapterHomeList = new AdapterHomeList(getActivity().getApplicationContext(), locationDTOS);
@@ -95,13 +95,37 @@ public class HomeFragment extends Fragment {
 
         viewPagerSlider();
 
-        map();
+        SupportMapFragment supportMapFragment = (SupportMapFragment)
+                getChildFragmentManager().findFragmentById(R.id.googleMap);
+        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                if (saveInstance == 0) {
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    LatLng marker = new LatLng(56.9600, 24.0997);
+                    markerOptions.position(marker);
+                    markerOptions.title("here");
+                    googleMap.addMarker(markerOptions);
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 12));
+                    saveInstance = 1;
+//                    googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+//                        @Override
+//                        public void onMapClick(LatLng latLng) {
+//                            MarkerOptions markerOptions = new MarkerOptions();
+//                            markerOptions.position(latLng);
+//                            markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+//                            googleMap.addMarker(markerOptions);
+//                        }
+//                    });
+                } else{
+            }
+            }
+        });
 
         View root = binding.getRoot();
         return root;
 
     }
-
 
     @Override
     public void onDestroyView() {
@@ -118,12 +142,14 @@ public class HomeFragment extends Fragment {
         });
     }
     public void toolBarConfig() {
+        backBtn.setVisibility(View.INVISIBLE);
         titleToolbar.setVisibility(View.GONE);
         searchText.setVisibility(View.VISIBLE);
 
     }
 
     public void binding(){
+        backBtn = binding.include.btnBack;
         titleToolbar = binding.include.tollbarTitle;
         searchText = (EditText) binding.include.searchEditText;
         searchBtn = (ImageView) binding.include.search;
@@ -144,12 +170,11 @@ public class HomeFragment extends Fragment {
         openMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment newFragment = new PlaceFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.nav_host_fragment_activity_main, newFragment);
-                transaction.addToBackStack(null);
-
-                transaction.commit();
+               PlaceFragment placeFragment = new PlaceFragment();
+               getActivity().getSupportFragmentManager().beginTransaction()
+                       .replace(R.id.nav_host_fragment_activity_main,placeFragment)
+                       .addToBackStack(null)
+                       .commit();
             }
         });
     }
@@ -194,31 +219,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onPageScrollStateChanged(int state) {
 
-            }
-        });
-    }
-
-    public void map(){
-        SupportMapFragment supportMapFragment = (SupportMapFragment)
-                getChildFragmentManager().findFragmentById(R.id.googleMap);
-        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                MarkerOptions markerOptions = new MarkerOptions();
-                LatLng marker = new LatLng(56.9600, 24.0997);
-                markerOptions.position(marker);
-                markerOptions.title("here");
-                googleMap.addMarker(markerOptions);
-                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker,12 ));
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        MarkerOptions markerOptions = new MarkerOptions();
-                        markerOptions.position(latLng);
-                        markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-                        googleMap.addMarker(markerOptions);
-                    }
-                });
             }
         });
     }

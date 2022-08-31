@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,9 @@ public class ServicesFragment extends Fragment {
 
         final TextView textView = binding.textNotifications;
         servicesViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
+        ImageView backBtn = binding.include.btnBack;
+        backBtn.setVisibility(View.INVISIBLE);
         return root;
     }
 

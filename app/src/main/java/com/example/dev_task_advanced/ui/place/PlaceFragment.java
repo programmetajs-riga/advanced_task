@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ public class PlaceFragment extends Fragment {
     private FragmentPlaceBinding binding;
     ImageView search;
     TextView titleToolbar;
+    EditText searchText;
     ImageView backBtn;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -66,14 +68,19 @@ public class PlaceFragment extends Fragment {
     }
 
     public void toolBarConfig() {
-        search = binding.include.search;
-        search.setVisibility(View.INVISIBLE);
+
+        searchText = binding.include.searchEditText;
+        searchText.setVisibility(View.GONE);
 
         backBtn = binding.include.btnBack;
-        search.setVisibility(View.INVISIBLE);
+        backBtn.setVisibility(View.INVISIBLE);
 
         titleToolbar = binding.include.tollbarTitle;
+        titleToolbar.setVisibility(View.VISIBLE);
         titleToolbar.setText(getText(R.string.title_toolbar_place));
+
+        search = binding.include.search;
+        search.setVisibility(View.GONE);
 
     }
 }
