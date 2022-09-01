@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.example.dev_task_advanced.databinding.FragmentSettingsBinding;
 public class fragment_settings extends Fragment {
     ImageView search;
     TextView titleToolbar;
+    EditText searchText;
 
     private FragmentSettingsBinding binding;
 
@@ -56,13 +58,15 @@ public class fragment_settings extends Fragment {
     }
 
     public void toolBarConfig() {
-
+        searchText = binding.include.searchEditText;
+        searchText.setVisibility(View.GONE);
 
         search = binding.include.search;
         search.setVisibility(View.INVISIBLE);
 
         titleToolbar = binding.include.tollbarTitle;
-        titleToolbar.setText(getText(R.string.title_language));
+        titleToolbar.setText(getText(R.string.title_settings));
+        titleToolbar.setVisibility(View.VISIBLE);
 
 
 

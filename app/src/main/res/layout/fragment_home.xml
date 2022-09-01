@@ -25,13 +25,13 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
-            app:cardCornerRadius="40dp">
+            app:cardCornerRadius="20dp">
 
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="170dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -60,12 +60,17 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_marginBottom="8dp"
-                android:drawableRight="@drawable/ic_baseline_arrow_forward_ios_24"
                 android:gravity="center"
                 android:text="Riga"
                 android:textColor="@color/black"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:textSize="19dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="-12dp"
+                android:src="@drawable/ic_small_arrow"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -77,11 +82,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_weight="1"
                 android:padding="4dp"
+                android:paddingStart="8dp"
+                android:gravity="center"
                 android:background="@drawable/open_map_container"
-                android:drawableLeft="@drawable/ic_baseline_open_in_full_24"
-
+                android:drawableLeft="@drawable/ic_expand_arrows_two_icon"
                 android:text="@string/open_map"
                 android:textColor="@color/black"
                 app:menu="@menu/bottom_nav_menu" />

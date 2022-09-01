@@ -51,7 +51,7 @@ public class AdapterHomeList extends RecyclerView.Adapter<AdapterHomeList.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder binding, int position) {
         binding.title.setText(locationById.get(position).Name);
-        binding.address.setText(locationById.get(position).Location);
+       // binding.address.setText(locationById.get(position).Location);
     }
 
     @Override

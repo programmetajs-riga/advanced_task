@@ -5,27 +5,31 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:title="@string/title_home"
+        />
 
     <item
         android:id="@+id/navigation_place"
         android:icon="@drawable/place"
-        android:title="@string/title_place" />
+        android:title="@string/title_place"
+      />
 
     <item
         android:id="@+id/navigation_services"
         android:icon="@drawable/box_glove"
-        android:title="@string/title_services" />
+        android:title="@string/title_services"
+        />
 
     <item
         android:id="@+id/navigation_my_records"
-        android:icon="@drawable/setting"
+        android:icon="@drawable/ic_small_arrow"
         android:title="@string/title_my_records"
-        />
+       />
 
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/setting"
-        android:title="@string/title_settings"/>
+        android:title="@string/title_settings"
+        />
 
 </menu>

@@ -9,29 +9,31 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.dev_task_advanced.Constants;
+import com.example.dev_task_advanced.DTOs.CityDTO;
 import com.example.dev_task_advanced.DTOs.LocationDTO;
 import com.example.dev_task_advanced.HTTP;
 import com.example.dev_task_advanced.R;
 import com.example.dev_task_advanced.adapters.AdapterHomeList;
 import com.example.dev_task_advanced.adapters.MyCustomPagerAdapter;
 import com.example.dev_task_advanced.databinding.FragmentHomeBinding;
-import com.example.dev_task_advanced.ui.place.PlaceFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
@@ -47,44 +49,41 @@ public class HomeFragment extends Fragment {
     int images[] = {R.drawable.box_image , R.drawable.box_fight};
     MyCustomPagerAdapter myCustomPagerAdapter;
     ArrayList<LocationDTO> locationDTOS = null;
+    ArrayList<CityDTO> city = null;
     Timer timer;
     int saveInstance = 0;
     Handler handler;
     LinearLayout sliderPanel;
     TextView titleToolbar;
     TextView openMap;
+    TextView placeSelected;
     ImageView backBtn;
     ImageView searchBtn;
     EditText searchText;
-    private SearchView searchView = null;
-    private SearchView.OnQueryTextListener queryTextListener;
     private int dotsCount;
     private ImageView[] dots;
     int viewPagerLenght;
-
-
+    int cityID = 0;
+Fragment fr = this;
     private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
         
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         binding();
 
         toolBarConfig();
 
-
         customPagerAdapter();
+
+        cityDTO();
+
+        getCityName();
 
         locationDTOS();
 
         openMap();
-
-
         search();
 
         AdapterHomeList adapterHomeList = new AdapterHomeList(getActivity().getApplicationContext(), locationDTOS);
@@ -99,6 +98,8 @@ public class HomeFragment extends Fragment {
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+                MapStyleOptions mapStyleOptions = MapStyleOptions.loadRawResourceStyle(getActivity().getApplicationContext(), R.raw.google_map);
+                googleMap.setMapStyle(mapStyleOptions);
                 if (saveInstance == 0) {
                     MarkerOptions markerOptions = new MarkerOptions();
                     LatLng marker = new LatLng(56.9600, 24.0997);
@@ -107,15 +108,6 @@ public class HomeFragment extends Fragment {
                     googleMap.addMarker(markerOptions);
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 12));
                     saveInstance = 1;
-//                    googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-//                        @Override
-//                        public void onMapClick(LatLng latLng) {
-//                            MarkerOptions markerOptions = new MarkerOptions();
-//                            markerOptions.position(latLng);
-//                            markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-//                            googleMap.addMarker(markerOptions);
-//                        }
-//                    });
                 } else{
             }
             }
@@ -136,6 +128,8 @@ public class HomeFragment extends Fragment {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                searchText.setText("");
+                Toast.makeText(getContext(),"Открой глаза!",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -153,6 +147,7 @@ public class HomeFragment extends Fragment {
         searchText = (EditText) binding.include.searchEditText;
         searchBtn = (ImageView) binding.include.search;
         openMap = (TextView) binding.openMap;
+        placeSelected = (TextView) binding.placeSelected;
         viewPager = (ViewPager) binding.viewPager;
         sliderPanel = (LinearLayout) binding.sliderDots;
     }
@@ -165,15 +160,31 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    public void cityDTO(){
+        try {
+            city = getCity();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void getCityName(){
+        //todo вместо i запихнть ид выбраного города в placeSelected
+        placeSelected.setText(city.get(cityID).city);
+    }
+
     public void openMap(){
         openMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               PlaceFragment placeFragment = new PlaceFragment();
-               getActivity().getSupportFragmentManager().beginTransaction()
-                       .replace(R.id.nav_host_fragment_activity_main,placeFragment)
-                       .addToBackStack(null)
-                       .commit();
+                NavController navController = Navigation.findNavController(v);
+                navController.navigate(R.id.one);
+//               PlaceFragment placeFragment = new PlaceFragment();
+//               getActivity().getSupportFragmentManager().beginTransaction()
+//                       .replace(R.id.nav_host_fragment_activity_main,placeFragment)
+//                       .addToBackStack(null)
+//                       .commit();
             }
         });
     }
@@ -248,15 +259,25 @@ public class HomeFragment extends Fragment {
 
                 });
             }
-        },5000,5000);
+        },0, 5000);
+    }
+
+    public ArrayList<CityDTO> getCity() throws JSONException {
+
+        return CityDTO.getValue(new HTTP()
+                .baseUrl(Constants.baseUrl + "getCities")
+                .metode("GET")
+                .connect()
+                .content);
     }
 
     private ArrayList<LocationDTO> getSports() throws JSONException {
+        String id = city.get(cityID).cityId;
 
         return LocationDTO.GetValue(new HTTP()
-                .baseUrl(Constants.baseUrl + "getLocationsByCity")
+                .baseUrl(Constants.baseUrl + "getSports")
                 .metode("GET")
-                .query("cityId=1")
+         //       .query("cityId=" + id)
                 .connect()
                 .content);
     }

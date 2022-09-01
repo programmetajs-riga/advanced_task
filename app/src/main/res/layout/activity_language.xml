@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginHorizontal="20dp"
+        android:background="@drawable/container"
         android:text="@string/submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -28,9 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/container"
         android:gravity="center"
-        android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tollbar"
@@ -40,6 +39,7 @@
             android:id="@+id/lv_selected_language"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/setting_first_container"
             android:padding="15dp">
 
             <TextView
@@ -48,7 +48,7 @@
                 android:drawableLeft="@drawable/ic_lv_flag"
                 android:drawablePadding="8dp"
                 android:textSize="18dp"
-                android:textStyle="bold"
+
                 android:textColor="@color/black"
                 android:text="Latviešu valoda" />
 
@@ -63,6 +63,7 @@
             android:id="@+id/rus_selected_language"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/setting_midl_container"
             android:padding="15dp">
 
             <TextView
@@ -71,7 +72,6 @@
                 android:drawableLeft="@drawable/ic_ru_flag"
                 android:drawablePadding="8dp"
                 android:textSize="18dp"
-                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:text="Русский" />
 
@@ -86,6 +86,7 @@
             android:id="@+id/eng_selected_language"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/setting_last_container"
             android:padding="15dp">
 
             <TextView
@@ -94,7 +95,6 @@
                 android:drawableLeft="@drawable/ic_american_flag"
                 android:drawablePadding="8dp"
                 android:textSize="18dp"
-                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:text="English" />
 

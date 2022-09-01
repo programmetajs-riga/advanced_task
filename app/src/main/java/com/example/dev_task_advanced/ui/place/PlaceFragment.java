@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.dev_task_advanced.R;
 import com.example.dev_task_advanced.databinding.FragmentPlaceBinding;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -25,6 +26,7 @@ public class PlaceFragment extends Fragment {
     ImageView search;
     TextView titleToolbar;
     EditText searchText;
+    int saveInstance = 0;
     ImageView backBtn;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -32,11 +34,28 @@ public class PlaceFragment extends Fragment {
 
         binding = FragmentPlaceBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        binding();
+
         toolBarConfig();
 
-        googleMap();
-
-
+        SupportMapFragment supportMapFragment = (SupportMapFragment)
+                getChildFragmentManager().findFragmentById(R.id.googleMap);
+        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                if (saveInstance == 0) {
+                    MarkerOptions markerOptions = new MarkerOptions();
+                    LatLng marker = new LatLng(56.9600, 24.0997);
+                    markerOptions.position(marker);
+                    markerOptions.title("here");
+                    googleMap.addMarker(markerOptions);
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 12));
+                    saveInstance = 1;
+                } else{
+                }
+            }
+        });
 
         return root;
     }
@@ -47,40 +66,23 @@ public class PlaceFragment extends Fragment {
         binding = null;
     }
 
-    public void googleMap(){
-        SupportMapFragment supportMapFragment = (SupportMapFragment)
-                getChildFragmentManager().findFragmentById(R.id.googleMap);
-
-        supportMapFragment.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap googleMap) {
-                googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng latLng) {
-                        MarkerOptions markerOptions = new MarkerOptions();
-                        markerOptions.position(latLng);
-                        markerOptions.title(latLng.latitude + " : " + latLng.longitude);
-                        googleMap.addMarker(markerOptions);
-                    }
-                });
-            }
-        });
+    public void binding(){
+        searchText = binding.include.searchEditText;
+        backBtn = binding.include.btnBack;
+        titleToolbar = binding.include.tollbarTitle;
+        search = binding.include.search;
     }
 
     public void toolBarConfig() {
 
-        searchText = binding.include.searchEditText;
+        search.setVisibility(View.GONE);
         searchText.setVisibility(View.GONE);
-
-        backBtn = binding.include.btnBack;
         backBtn.setVisibility(View.INVISIBLE);
-
-        titleToolbar = binding.include.tollbarTitle;
         titleToolbar.setVisibility(View.VISIBLE);
+
         titleToolbar.setText(getText(R.string.title_toolbar_place));
 
-        search = binding.include.search;
-        search.setVisibility(View.GONE);
+
 
     }
 }

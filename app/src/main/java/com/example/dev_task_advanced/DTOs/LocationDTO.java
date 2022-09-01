@@ -26,7 +26,7 @@ public class LocationDTO {
 
             jsonParsing.Id = jsonObject.getString("id");
             jsonParsing.Name = jsonObject.getString("name");
-            jsonParsing.Location = jsonObject.getString("address");
+          //  jsonParsing.Location = jsonObject.getString("address");
 
             location.add(jsonParsing);
         }
