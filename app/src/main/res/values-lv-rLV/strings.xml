@@ -18,4 +18,10 @@
     <string name="back">atpakaļ</string>
     <string name="submit">Iesniegt</string>
     <string name="_1_place">1.vieta</string>
+    <string name="username">Lietotājvārds</string>
+    <string name="login">Pieslēgties</string>
+    <string name="password">Parole</string>
+    <string name="error401">Nepareizs pieteikšanās vārds vai parole</string>
+    <string name="error404">Problēmas ar savienojumiem!</string>
+    <string name="vailidation">Kaut kas notiek nepareizi</string>
 </resources>

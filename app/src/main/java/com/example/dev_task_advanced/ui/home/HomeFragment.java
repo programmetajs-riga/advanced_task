@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +51,7 @@ public class HomeFragment extends Fragment {
     MyCustomPagerAdapter myCustomPagerAdapter;
     ArrayList<LocationDTO> locationDTOS = null;
     ArrayList<CityDTO> city = null;
+    ScrollView mapScroll;
     Timer timer;
     int saveInstance = 0;
     Handler handler;
@@ -64,7 +66,7 @@ public class HomeFragment extends Fragment {
     private ImageView[] dots;
     int viewPagerLenght;
     int cityID = 0;
-Fragment fr = this;
+    Fragment fr = this;
     private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -89,6 +91,7 @@ Fragment fr = this;
         AdapterHomeList adapterHomeList = new AdapterHomeList(getActivity().getApplicationContext(), locationDTOS);
         RecyclerView recyclerView = (RecyclerView) binding.listView;
         recyclerView.setAdapter(adapterHomeList);
+        recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
 
         viewPagerSlider();
@@ -98,6 +101,7 @@ Fragment fr = this;
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
+                googleMap.getUiSettings().setScrollGesturesEnabled(false);
                 MapStyleOptions mapStyleOptions = MapStyleOptions.loadRawResourceStyle(getActivity().getApplicationContext(), R.raw.google_map);
                 googleMap.setMapStyle(mapStyleOptions);
                 if (saveInstance == 0) {
@@ -142,6 +146,7 @@ Fragment fr = this;
     }
 
     public void binding(){
+        mapScroll = (ScrollView) binding.scroll;
         backBtn = binding.include.btnBack;
         titleToolbar = binding.include.tollbarTitle;
         searchText = (EditText) binding.include.searchEditText;

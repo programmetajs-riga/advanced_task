@@ -18,4 +18,10 @@
     <string name="back">назад</string>
     <string name="submit">Отправить</string>
     <string name="_1_place">1.место</string>
+    <string name="username">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="login">Авторизоваться</string>
+    <string name="vailidation">Что-то идет не так</string>
+    <string name="error404">Проблемы со связью!</string>
+    <string name="error401">еверный логин или пароль</string>
 </resources>
