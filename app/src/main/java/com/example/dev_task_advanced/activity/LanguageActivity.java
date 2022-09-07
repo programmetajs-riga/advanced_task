@@ -1,21 +1,16 @@
 package com.example.dev_task_advanced.activity;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.dev_task_advanced.R;
-import com.example.dev_task_advanced.ui.home.HomeFragment;
 
 import java.util.Locale;
 
@@ -107,12 +102,12 @@ public class LanguageActivity extends AppCompatActivity {
     }
 
     public void validation(){
-        if(usedLanguage.equals("en")){
+        if(usedLanguage.equals("en_GB")){
             checkedRuLanguage.setVisibility(View.INVISIBLE);
             checkedLvLanguage.setVisibility(View.INVISIBLE);
 
             checkedEnLanguage.setVisibility(View.VISIBLE);
-        }else if (usedLanguage.equals("ru")){
+        }else if (usedLanguage.equals("ru_RU")){
             checkedEnLanguage.setVisibility(View.INVISIBLE);
             checkedLvLanguage.setVisibility(View.INVISIBLE);
 

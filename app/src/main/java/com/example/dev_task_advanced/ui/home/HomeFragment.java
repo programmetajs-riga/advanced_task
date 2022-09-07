@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,11 +46,10 @@ import java.util.TimerTask;
 public class HomeFragment extends Fragment {
 
     ViewPager viewPager;
-    int images[] = {R.drawable.box_image , R.drawable.box_fight};
+    int images[] = {R.drawable.box_image, R.drawable.box_fight};
     MyCustomPagerAdapter myCustomPagerAdapter;
     ArrayList<LocationDTO> locationDTOS = null;
     ArrayList<CityDTO> city = null;
-    ScrollView mapScroll;
     Timer timer;
     int saveInstance = 0;
     Handler handler;
@@ -71,7 +69,7 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        
+
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         binding();
 
@@ -112,8 +110,8 @@ public class HomeFragment extends Fragment {
                     googleMap.addMarker(markerOptions);
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 12));
                     saveInstance = 1;
-                } else{
-            }
+                } else {
+                }
             }
         });
 
@@ -126,18 +124,20 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+        timer.cancel();
     }
 
-    public void search(){
+    public void search() {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 searchText.setText("");
-                Toast.makeText(getContext(),"Открой глаза!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Открой глаза!", Toast.LENGTH_SHORT).show();
 
             }
         });
     }
+
     public void toolBarConfig() {
         backBtn.setVisibility(View.INVISIBLE);
         titleToolbar.setVisibility(View.GONE);
@@ -145,8 +145,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public void binding(){
-        mapScroll = (ScrollView) binding.scroll;
+    public void binding() {
         backBtn = binding.include.btnBack;
         titleToolbar = binding.include.tollbarTitle;
         searchText = (EditText) binding.include.searchEditText;
@@ -157,7 +156,7 @@ public class HomeFragment extends Fragment {
         sliderPanel = (LinearLayout) binding.sliderDots;
     }
 
-    public void locationDTOS(){
+    public void locationDTOS() {
         try {
             locationDTOS = getSports();
         } catch (JSONException e) {
@@ -165,7 +164,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    public void cityDTO(){
+    public void cityDTO() {
         try {
             city = getCity();
         } catch (JSONException e) {
@@ -174,41 +173,35 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public void getCityName(){
-        //todo вместо i запихнть ид выбраного города в placeSelected
+    public void getCityName() {
         placeSelected.setText(city.get(cityID).city);
     }
 
-    public void openMap(){
+    public void openMap() {
         openMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NavController navController = Navigation.findNavController(v);
                 navController.navigate(R.id.one);
-//               PlaceFragment placeFragment = new PlaceFragment();
-//               getActivity().getSupportFragmentManager().beginTransaction()
-//                       .replace(R.id.nav_host_fragment_activity_main,placeFragment)
-//                       .addToBackStack(null)
-//                       .commit();
             }
         });
     }
 
-    public void customPagerAdapter(){
+    public void customPagerAdapter() {
         myCustomPagerAdapter = new MyCustomPagerAdapter(getContext(), images);
         viewPager.setAdapter(myCustomPagerAdapter);
 
         dotsCount = myCustomPagerAdapter.getCount();
         dots = new ImageView[dotsCount];
 
-        for( int i = 0 ; i < dotsCount ; i++){
+        for (int i = 0; i < dotsCount; i++) {
 
             dots[i] = new ImageView(getContext());
             dots[i].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.nonactive_dot));
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT , LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-            params.setMargins(8, 0 ,8 , 0);
+            params.setMargins(8, 0, 8, 0);
 
             sliderPanel.addView(dots[i], params);
         }
@@ -224,11 +217,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
 
-                for(int i = 0 ; i < dotsCount ; i++){
-                    dots[i].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(),R.drawable.nonactive_dot));
+                for (int i = 0; i < dotsCount; i++) {
+                    dots[i].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.nonactive_dot));
                 }
 
-                dots[position].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(),R.drawable.active_dot));
+                dots[position].setImageDrawable(ContextCompat.getDrawable(getActivity().getApplicationContext(), R.drawable.active_dot));
             }
 
             @Override
@@ -238,7 +231,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    public void viewPagerSlider(){
+    public void viewPagerSlider() {
         handler = new Handler();
         viewPagerLenght = binding.viewPager.getCurrentItem();
         timer = new Timer();
@@ -248,23 +241,16 @@ public class HomeFragment extends Fragment {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            viewPager.setCurrentItem(viewPagerLenght,true);
+                            viewPager.setCurrentItem(viewPagerLenght, true);
                             viewPagerLenght++;
-                            if(viewPagerLenght == myCustomPagerAdapter.getCount()+1){
-                                viewPagerLenght =0;
+                            if (viewPagerLenght == myCustomPagerAdapter.getCount() + 1) {
+                                viewPagerLenght = 0;
                             }
-
-                        }catch (Exception e){
-
-                        }
-
-
                     }
 
                 });
             }
-        },0, 5000);
+        }, 0, 5000);
     }
 
     public ArrayList<CityDTO> getCity() throws JSONException {
@@ -282,7 +268,6 @@ public class HomeFragment extends Fragment {
         return LocationDTO.GetValue(new HTTP()
                 .baseUrl(Constants.baseUrl + "getSports")
                 .metode("GET")
-         //       .query("cityId=" + id)
                 .connect()
                 .content);
     }

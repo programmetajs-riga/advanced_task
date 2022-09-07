@@ -1,5 +1,6 @@
 package com.example.dev_task_advanced.ui.place;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.dev_task_advanced.R;
+import com.example.dev_task_advanced.activity.MapActivity;
 import com.example.dev_task_advanced.databinding.FragmentPlaceBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,6 +28,7 @@ public class PlaceFragment extends Fragment {
     ImageView search;
     TextView titleToolbar;
     EditText searchText;
+    TextView openMapBtn;
     int saveInstance = 0;
     ImageView backBtn;
 
@@ -38,6 +41,14 @@ public class PlaceFragment extends Fragment {
         binding();
 
         toolBarConfig();
+
+        openMapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MapActivity.class);
+                startActivity(intent);
+            }
+        });
 
         SupportMapFragment supportMapFragment = (SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.googleMap);
@@ -67,6 +78,8 @@ public class PlaceFragment extends Fragment {
     }
 
     public void binding(){
+
+        openMapBtn = binding.mapOpenBtn;
         searchText = binding.include.searchEditText;
         backBtn = binding.include.btnBack;
         titleToolbar = binding.include.tollbarTitle;
