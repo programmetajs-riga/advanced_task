@@ -14,8 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -25,6 +23,7 @@ import com.example.dev_task_advanced.DTOs.CityDTO;
 import com.example.dev_task_advanced.DTOs.LocationDTO;
 import com.example.dev_task_advanced.HTTP;
 import com.example.dev_task_advanced.R;
+import com.example.dev_task_advanced.activity.MainActivity;
 import com.example.dev_task_advanced.adapters.AdapterHomeList;
 import com.example.dev_task_advanced.adapters.MyCustomPagerAdapter;
 import com.example.dev_task_advanced.databinding.FragmentHomeBinding;
@@ -84,6 +83,7 @@ public class HomeFragment extends Fragment {
         locationDTOS();
 
         openMap();
+
         search();
 
         AdapterHomeList adapterHomeList = new AdapterHomeList(getActivity().getApplicationContext(), locationDTOS);
@@ -111,6 +111,7 @@ public class HomeFragment extends Fragment {
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 12));
                     saveInstance = 1;
                 } else {
+
                 }
             }
         });
@@ -181,8 +182,9 @@ public class HomeFragment extends Fragment {
         openMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavController navController = Navigation.findNavController(v);
-                navController.navigate(R.id.one);
+                ((MainActivity)getActivity()).navToPlace();
+//                NavController navController = Navigation.findNavController(v);
+//                navController.navigate(R.id.action_navigation_home_to_navigation_place);
             }
         });
     }

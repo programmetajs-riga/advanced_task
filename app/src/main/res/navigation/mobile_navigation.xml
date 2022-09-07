@@ -10,12 +10,9 @@
         android:name="com.example.dev_task_advanced.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" >
-        <action android:id="@+id/one"
-            app:destination="@+id/navigation_place"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_place"
+            app:destination="@id/navigation_place" />
     </fragment>
 
     <fragment
@@ -23,14 +20,9 @@
         android:name="com.example.dev_task_advanced.ui.place.PlaceFragment"
         android:label="@string/title_place"
         tools:layout="@layout/fragment_place" >
-        <action android:id="@+id/action_b_to_a"
-        app:destination="@id/navigation_home"
-        app:enterAnim="@anim/nav_default_enter_anim"
-        app:exitAnim="@anim/nav_default_exit_anim"
-        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-        app:popExitAnim="@anim/nav_default_pop_exit_anim"
-        app:popUpTo="@+id/a"
-        app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_navigation_place_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
 
     <fragment
