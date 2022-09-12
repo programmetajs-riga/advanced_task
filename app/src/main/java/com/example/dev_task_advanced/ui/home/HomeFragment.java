@@ -5,12 +5,15 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -45,17 +48,17 @@ import java.util.TimerTask;
 public class HomeFragment extends Fragment {
 
     ViewPager viewPager;
-    int images[] = {R.drawable.box_image, R.drawable.box_fight};
+    int images[] = {R.drawable.box_image, R.drawable.box_fight , R.drawable.box};
     MyCustomPagerAdapter myCustomPagerAdapter;
     ArrayList<LocationDTO> locationDTOS = null;
     ArrayList<CityDTO> city = null;
     Timer timer;
-    int saveInstance = 0;
+    String[] citys = {"Riga" , "Jurmala"};
+    Spinner spinner;
     Handler handler;
     LinearLayout sliderPanel;
     TextView titleToolbar;
     TextView openMap;
-    TextView placeSelected;
     ImageView backBtn;
     ImageView searchBtn;
     EditText searchText;
@@ -63,7 +66,6 @@ public class HomeFragment extends Fragment {
     private ImageView[] dots;
     int viewPagerLenght;
     int cityID = 0;
-    Fragment fr = this;
     private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -77,8 +79,6 @@ public class HomeFragment extends Fragment {
         customPagerAdapter();
 
         cityDTO();
-
-        getCityName();
 
         locationDTOS();
 
@@ -102,23 +102,28 @@ public class HomeFragment extends Fragment {
                 googleMap.getUiSettings().setScrollGesturesEnabled(false);
                 MapStyleOptions mapStyleOptions = MapStyleOptions.loadRawResourceStyle(getActivity().getApplicationContext(), R.raw.google_map);
                 googleMap.setMapStyle(mapStyleOptions);
-                if (saveInstance == 0) {
                     MarkerOptions markerOptions = new MarkerOptions();
                     LatLng marker = new LatLng(56.9600, 24.0997);
                     markerOptions.position(marker);
                     markerOptions.title("here");
                     googleMap.addMarker(markerOptions);
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(marker, 12));
-                    saveInstance = 1;
-                } else {
-
-                }
             }
         });
 
-        View root = binding.getRoot();
-        return root;
+        spinner();
 
+        View root = binding.getRoot();
+
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
+            @Override
+            public void handleOnBackPressed() {
+                String test ;
+                test = "test";
+            }
+        };
+        return root;
     }
 
     @Override
@@ -126,6 +131,12 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
         timer.cancel();
+    }
+
+    public void spinner(){
+        ArrayAdapter aa = new ArrayAdapter(getActivity().getApplicationContext(),android.R.layout.simple_spinner_item,citys);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(aa);
     }
 
     public void search() {
@@ -147,12 +158,12 @@ public class HomeFragment extends Fragment {
     }
 
     public void binding() {
+        spinner = (Spinner) binding.spinner;
         backBtn = binding.include.btnBack;
         titleToolbar = binding.include.tollbarTitle;
         searchText = (EditText) binding.include.searchEditText;
         searchBtn = (ImageView) binding.include.search;
         openMap = (TextView) binding.openMap;
-        placeSelected = (TextView) binding.placeSelected;
         viewPager = (ViewPager) binding.viewPager;
         sliderPanel = (LinearLayout) binding.sliderDots;
     }
@@ -174,17 +185,12 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public void getCityName() {
-        placeSelected.setText(city.get(cityID).city);
-    }
 
     public void openMap() {
         openMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).navToPlace();
-//                NavController navController = Navigation.findNavController(v);
-//                navController.navigate(R.id.action_navigation_home_to_navigation_place);
             }
         });
     }

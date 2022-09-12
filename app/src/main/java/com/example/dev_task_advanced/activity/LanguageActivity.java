@@ -26,20 +26,17 @@ public class LanguageActivity extends AppCompatActivity {
     TextView checkedRuLanguage;
     TextView checkedLvLanguage;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language);
         getSupportActionBar().hide();
+
         uiComponentDef();
 
        usedLanguage = String.valueOf(getResources().getConfiguration().locale);
 
        validation();
-
-
-
 
         enRow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,24 +99,21 @@ public class LanguageActivity extends AppCompatActivity {
     }
 
     public void validation(){
-        if(usedLanguage.equals("en_GB")){
+        if(usedLanguage.contains("en")){
             checkedRuLanguage.setVisibility(View.INVISIBLE);
             checkedLvLanguage.setVisibility(View.INVISIBLE);
 
             checkedEnLanguage.setVisibility(View.VISIBLE);
-        }else if (usedLanguage.equals("ru_RU")){
+        }else if (usedLanguage.contains("ru")){
             checkedEnLanguage.setVisibility(View.INVISIBLE);
             checkedLvLanguage.setVisibility(View.INVISIBLE);
 
             checkedRuLanguage.setVisibility(View.VISIBLE);
-        }else if (usedLanguage.equals("lv")){
+        }else if (usedLanguage.contains("lv")){
             checkedRuLanguage.setVisibility(View.INVISIBLE);
             checkedEnLanguage.setVisibility(View.INVISIBLE);
 
             checkedLvLanguage.setVisibility(View.VISIBLE);
-        }else{
-            String testDebug = null;
-            testDebug = "asd";
         }
     }
     public void uiComponentDef (){

@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -10,7 +11,7 @@
         android:layout_marginHorizontal="16dp"
         android:layout_weight="2"
         android:orientation="horizontal"
-        android:padding="10dp"
+        android:padding="8dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/white_container"
         >
@@ -18,8 +19,9 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="8dp"
             android:layout_below="@+id/image"
-            android:layout_weight="1"
+            android:layout_weight="100"
             android:orientation="vertical"
             >
 
@@ -53,12 +55,23 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+        <androidx.cardview.widget.CardView
+            android:layout_width="135dp"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="10dp">
         <ImageView
             android:id="@+id/image"
-            android:layout_width="100dp"
+            android:scaleType="centerCrop"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/box_image" />
-
+            android:src="@drawable/box_image"
+            />
+        </androidx.cardview.widget.CardView>
+        </LinearLayout>
     </LinearLayout>
 
 

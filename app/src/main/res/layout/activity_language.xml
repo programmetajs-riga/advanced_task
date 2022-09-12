@@ -66,6 +66,7 @@
             android:background="@drawable/setting_midl_container"
             android:padding="15dp">
 
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

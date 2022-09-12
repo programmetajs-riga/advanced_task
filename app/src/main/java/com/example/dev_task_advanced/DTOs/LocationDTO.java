@@ -16,7 +16,8 @@ public class LocationDTO {
 
         ArrayList<LocationDTO> location = new ArrayList<>();
 
-        JSONArray jsonArray = new JSONArray(content);
+        JSONArray jsonArray = new JSONArray("[{\"id\":1,\"name\":\"AmericannnnnnnnnnnnnnnnFootball\"},{\"id\":2,\"name\":\"Basketball\"},{\"id\":3,\"name\":\"Cricket\"},{\"id\":4,\"name\":\"MixedMartialArts\"},{\"id\":5,\"name\":\"RugbyLeague\"},{\"id\":6,\"name\":\"Nodetails\"}]");
+
 
         for (int i = 0 ; i < jsonArray.length() ; i++ ){
 
