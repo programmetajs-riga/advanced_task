@@ -34,6 +34,14 @@ public class LanguageActivity extends AppCompatActivity {
 
         uiComponentDef();
 
+        if (!isTaskRoot()) {
+            final Intent intent = getIntent();
+            if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && Intent.ACTION_MAIN.equals(intent.getAction())) {
+                finish();
+                return;
+            }
+        }
+
        usedLanguage = String.valueOf(getResources().getConfiguration().locale);
 
        validation();

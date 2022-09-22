@@ -12,7 +12,7 @@
         layout="@layout/toolbar_fragment" />
 
     <fragment
-        android:id="@+id/googleMap"
+        android:id="@+id/googleMaps"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -26,8 +26,8 @@
         android:id="@+id/map_open_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/googleMap"
-        android:layout_alignRight="@id/googleMap"
+        android:layout_alignTop="@id/googleMaps"
+        android:layout_alignRight="@id/googleMaps"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -45,14 +45,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/googleMap"
+        android:layout_below="@+id/googleMaps"
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="25dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/custom_inpute"
         android:orientation="horizontal"
         android:padding="10dp"
-        app:layout_constraintTop_toTopOf="@+id/googleMap">
+        app:layout_constraintTop_toTopOf="@+id/googleMaps">
 
         <ImageView
             android:layout_width="40dp"

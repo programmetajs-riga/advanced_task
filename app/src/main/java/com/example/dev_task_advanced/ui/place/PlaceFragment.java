@@ -20,23 +20,25 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class PlaceFragment extends Fragment {
 
-    private FragmentPlaceBinding binding;
+
     ImageView search;
     TextView titleToolbar;
     EditText searchText;
     TextView openMapBtn;
-    int saveInstance = 0;
+    private int saveInstance ;
     ImageView backBtn;
+    private FragmentPlaceBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentPlaceBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+
 
         binding();
 
@@ -51,11 +53,13 @@ public class PlaceFragment extends Fragment {
         });
 
         SupportMapFragment supportMapFragment = (SupportMapFragment)
-                getChildFragmentManager().findFragmentById(R.id.googleMap);
+                getChildFragmentManager().findFragmentById(R.id.googleMaps);
         supportMapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 if (saveInstance == 0) {
+                    MapStyleOptions mapStyleOptions = MapStyleOptions.loadRawResourceStyle(getActivity().getApplicationContext(), R.raw.google_map);
+                    googleMap.setMapStyle(mapStyleOptions);
                     MarkerOptions markerOptions = new MarkerOptions();
                     LatLng marker = new LatLng(56.9600, 24.0997);
                     markerOptions.position(marker);
@@ -67,6 +71,7 @@ public class PlaceFragment extends Fragment {
                 }
             }
         });
+        View root = binding.getRoot();
 
         return root;
     }

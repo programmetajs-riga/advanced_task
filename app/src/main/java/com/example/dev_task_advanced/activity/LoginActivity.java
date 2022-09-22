@@ -1,10 +1,14 @@
 package com.example.dev_task_advanced.activity;
 
+import static androidx.core.content.PackageManagerCompat.LOG_TAG;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
     int responseCode;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +41,14 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getSupportActionBar().hide();
+        if (!isTaskRoot()) {
+            final Intent intent = getIntent();
+            if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && Intent.ACTION_MAIN.equals(intent.getAction())) {
+                Log.w(LOG_TAG, "Main Activity is not the root.  Finishing Main Activity instead of launching.");
+                finish();
+                return;
+            }
+        }
 
         binding.btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,9 +65,9 @@ public class LoginActivity extends AppCompatActivity {
                 if(login.equals("") && password.equals("")){
                    binding.errortext.setText(getResources().getString(R.string.vailidation));
                 }else if (patternSpace.matcher(password).matches()){
-                   binding.errortext.setText("empty password or validation error");
+                   binding.errortext.setText("empty password");
                }else if (patternSpace.matcher(login).matches()){
-                    binding.errortext.setText("empty login or validation error ");
+                    binding.errortext.setText("empty login ");
                 }else if (!patternPassword.matcher(password).matches() || !patternLogin.matcher(login).matches()){
                     binding.errortext.setText("validation error");
                 }
