@@ -12,6 +12,8 @@
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/drawable/custom_button.xml" value="0.2795" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/drawable/custom_button_settings.xml" value="0.234" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/drawable/custom_inpute.xml" value="0.2795" />
+        <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/drawable/custom_spinner.xml" value="0.247" />
+        <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/drawable/custom_spinner_up.xml" value="0.247" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/drawable/flag.xml" value="0.204" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/drawable/ic_american_flag.xml" value="0.3675" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1515" />
@@ -44,6 +46,7 @@
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/layout/activity_language.xml" value="0.365625" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/layout/bottom_navigation_bar.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/layout/fragment_dashboard.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/layout/fragment_home.xml" value="0.4" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/layout/fragment_my_recoders.xml" value="0.36666666666666664" />
@@ -55,6 +58,7 @@
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/layout/item.xml" value="0.176" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/layout/map.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/layout/place_fragment_list.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/layout/spinner_item.xml" value="0.30085470085470084" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/layout/toolbar.xml" value="0.264" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/layout/toolbar_fragment.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/aleks/AndroidStudioProjects/Dev_task_advanced/app/src/main/res/layout/toolbar_language_selector.xml" value="0.264" />

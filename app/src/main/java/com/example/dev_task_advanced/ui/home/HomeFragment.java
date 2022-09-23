@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,12 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.dev_task_advanced.Constants;
+import com.example.dev_task_advanced.CustomSpinner;
 import com.example.dev_task_advanced.DTOs.CityDTO;
 import com.example.dev_task_advanced.DTOs.LocationDTO;
 import com.example.dev_task_advanced.HTTP;
 import com.example.dev_task_advanced.R;
 import com.example.dev_task_advanced.activity.MainActivity;
 import com.example.dev_task_advanced.adapters.AdapterHomeList;
+import com.example.dev_task_advanced.adapters.AdapterSpinner;
 import com.example.dev_task_advanced.adapters.MyCustomPagerAdapter;
 import com.example.dev_task_advanced.databinding.FragmentHomeBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -45,7 +46,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements CustomSpinner.OnSpinnerEventsListener {
 
     ViewPager viewPager;
     int images[] = {R.drawable.box_image, R.drawable.box_fight , R.drawable.box};
@@ -53,8 +54,7 @@ public class HomeFragment extends Fragment {
     ArrayList<LocationDTO> locationDTOS = null;
     ArrayList<CityDTO> city = null;
     Timer timer;
-    String[] citys = {"Riga" , "Jurmala"};
-    Spinner spinner;
+    CustomSpinner spinner;
     Handler handler;
     LinearLayout sliderPanel;
     TextView titleToolbar;
@@ -64,6 +64,7 @@ public class HomeFragment extends Fragment {
     EditText searchText;
     private int dotsCount;
     private ImageView[] dots;
+    private AdapterSpinner adapterSpinner;
     int viewPagerLenght;
     int cityID = 0;
     private FragmentHomeBinding binding;
@@ -73,6 +74,7 @@ public class HomeFragment extends Fragment {
 
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+        spinner = (CustomSpinner) binding.spinner;
         binding();
 
         toolBarConfig();
@@ -135,9 +137,9 @@ public class HomeFragment extends Fragment {
     }
 
     public void spinner(){
-        ArrayAdapter aa = new ArrayAdapter(getActivity().getApplicationContext(),android.R.layout.simple_spinner_item,citys);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(aa);
+        spinner.setSpinnerEventsListener(this);
+        adapterSpinner = new AdapterSpinner(getContext(),city);
+        spinner.setAdapter(adapterSpinner);
     }
 
     public void search() {
@@ -159,7 +161,6 @@ public class HomeFragment extends Fragment {
     }
 
     public void binding() {
-        spinner = (Spinner) binding.spinner;
         backBtn = binding.include.btnBack;
         titleToolbar = binding.include.tollbarTitle;
         searchText = (EditText) binding.include.searchEditText;
@@ -281,4 +282,13 @@ public class HomeFragment extends Fragment {
                 .content);
     }
 
+    @Override
+    public void onPopupWindowOpened(Spinner spinner) {
+        spinner.setBackground(getResources().getDrawable(R.drawable.custom_spinner_up));
+    }
+
+    @Override
+    public void onPopupWindowClosed(Spinner spinner) {
+        spinner.setBackground(getResources().getDrawable(R.drawable.custom_spinner));
+    }
 }

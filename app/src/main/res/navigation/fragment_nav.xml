@@ -21,6 +21,7 @@
 
     </fragment>
 
+
     <fragment
         android:id="@+id/navigation_services"
         android:name="com.example.dev_task_advanced.ui.services.ServicesFragment"

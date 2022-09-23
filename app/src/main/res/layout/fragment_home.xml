@@ -65,10 +65,13 @@
                 android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@+id/cardView">
 
-                <Spinner
+                <com.example.dev_task_advanced.CustomSpinner
                     android:id="@+id/spinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_width="125dp"
+                    android:layout_height="25dp"
+                    android:dropDownVerticalOffset="25dp"
                     android:layout_weight="1"/>
 
                 <TextView
